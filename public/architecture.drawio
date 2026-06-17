@@ -1,0 +1,94 @@
+<mxfile host="app.diagrams.net" agent="Claude">
+  <diagram name="Architecture" id="arch-diagram-1">
+    <mxGraphModel dx="1257" dy="695" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="grp_client" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=16;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=6;align=center;spacingTop=8;" value="Browser" vertex="1">
+          <mxGeometry height="320" width="320" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="UI" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;fontColor=#23445d;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="Next.js App Router UI" vertex="1">
+          <mxGeometry height="60" width="240" x="80" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="DT" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;fontColor=#23445d;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="Digital Twin Orchestrator" vertex="1">
+          <mxGeometry height="60" width="240" x="80" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="Analytics" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;fontColor=#23445d;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="Clarity Analytics" vertex="1">
+          <mxGeometry height="50" width="240" x="80" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="grp_vercel" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=16;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=6;align=center;spacingTop=8;" value="Vercel Edge / Serverless" vertex="1">
+          <mxGeometry height="420" width="320" x="480" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ChatAPI" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#97d077;strokeColor=#36572a;fontColor=#234318;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="/api/chat &#xa;OpenRouter streaming" vertex="1">
+          <mxGeometry height="60" width="240" x="520" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="QuotaAPI" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#97d077;strokeColor=#36572a;fontColor=#234318;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="/api/usage/quota" vertex="1">
+          <mxGeometry height="50" width="240" x="520" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="ResumeAPI" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#97d077;strokeColor=#36572a;fontColor=#234318;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="/resume.txt" vertex="1">
+          <mxGeometry height="50" width="240" x="520" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="SEO" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#97d077;strokeColor=#36572a;fontColor=#234318;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="sitemap · robots · OG image" vertex="1">
+          <mxGeometry height="50" width="240" x="520" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="grp_external" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=16;fontStyle=1;fillColor=#ffe6cc;strokeColor=#d79b00;arcSize=6;align=center;spacingTop=8;" value="External Services" vertex="1">
+          <mxGeometry height="420" width="320" x="920" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="OpenRouter" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffc285;strokeColor=#8a5a00;fontColor=#5c3c00;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="OpenRouter LLM API" vertex="1">
+          <mxGeometry height="50" width="240" x="960" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Chatbase" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffc285;strokeColor=#8a5a00;fontColor=#5c3c00;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="Chatbase Embed" vertex="1">
+          <mxGeometry height="50" width="240" x="960" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="GitHubRaw" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffc285;strokeColor=#8a5a00;fontColor=#5c3c00;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="GitHub Raw CV / Resume" vertex="1">
+          <mxGeometry height="50" width="240" x="960" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="Clarity" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffc285;strokeColor=#8a5a00;fontColor=#5c3c00;fontSize=13;fontStyle=1;arcSize=12;shadow=1;" value="Microsoft Clarity" vertex="1">
+          <mxGeometry height="50" width="240" x="960" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="UI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;elbow=vertical;startArrow=none;" target="DT" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="DT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" target="ChatAPI" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="200" />
+              <mxPoint x="420" y="200" />
+              <mxPoint x="420" y="108" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="DT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="Chatbase" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="ChatAPI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="OpenRouter" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="ChatAPI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;" target="QuotaAPI" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="ResumeAPI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="GitHubRaw" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="Analytics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="Clarity" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="UI" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="SEO" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

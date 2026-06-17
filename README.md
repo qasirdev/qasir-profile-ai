@@ -42,37 +42,7 @@ Designed for **recruiters**, **hiring managers**, and **technical reviewers** to
 
 ## Architecture
 
-```mermaid
-flowchart TB
-  subgraph client [Browser]
-    UI[Next.js App Router UI]
-    DT[Digital Twin Orchestrator]
-    Analytics[Clarity Analytics]
-  end
-
-  subgraph vercel [Vercel Edge / Serverless]
-    ChatAPI["/api/chat — OpenRouter streaming"]
-    QuotaAPI["/api/usage/quota"]
-    ResumeAPI["/resume.txt"]
-    SEO[sitemap · robots · OG image]
-  end
-
-  subgraph external [External Services]
-    OpenRouter[OpenRouter LLM API]
-    Chatbase[Chatbase Embed]
-    GitHubRaw[GitHub Raw CV / Resume]
-    Clarity[Microsoft Clarity]
-  end
-
-  UI --> DT
-  DT --> ChatAPI
-  DT --> Chatbase
-  ChatAPI --> OpenRouter
-  ChatAPI --> QuotaAPI
-  ResumeAPI --> GitHubRaw
-  Analytics --> Clarity
-  UI --> SEO
-```
+![Architecture diagram — Browser, Vercel Edge / Serverless, and External Services](./public/architecture.png)
 
 ---
 
