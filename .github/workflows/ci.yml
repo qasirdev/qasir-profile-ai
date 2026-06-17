@@ -19,4 +19,4 @@ jobs:
 
       - run: npm ci
       - run: npm run build
-      # - run: npm run lint   # enable after lint errors are fixed
+      - run: npm run lint
