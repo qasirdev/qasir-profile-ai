@@ -66,7 +66,7 @@ Before you start, make sure you have:
 - [ ] A [Vercel](https://vercel.com) account (sign in with GitHub)
 - [ ] GoDaddy login for `qasir.co.uk` DNS
 - [ ] An [OpenRouter](https://openrouter.ai) API key (for AI Digital Twin chat)
-- [ ] [Node.js 20](https://nodejs.org) installed locally
+- [ ] [Node.js 24](https://nodejs.org) installed locally
 - [ ] Git installed locally
 
 ---
@@ -243,7 +243,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           cache: npm
 
       - run: npm ci

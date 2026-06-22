@@ -104,7 +104,7 @@ qasir-profile/
 
 ### Prerequisites
 
-- **Node.js 20+**
+- **Node.js 24+** (GitHub Actions runners; Node 20 is deprecated on `ubuntu-latest`)
 - **npm**
 - OpenRouter API key (for AI Digital Twin)
 - Optional: Chatbase agent ID, Microsoft Clarity project ID
@@ -177,7 +177,7 @@ npm run test:e2e:ui
 **GitHub Actions** runs on every push and pull request to `main`:
 
 1. Checkout code
-2. Setup Node.js 20 with npm cache
+2. Setup Node.js 24 with npm cache
 3. `npm ci`
 4. `npm run build`
 
