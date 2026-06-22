@@ -197,6 +197,7 @@ Full deployment walkthrough: [docs/vercel-deployment-guide.md](docs/vercel-deplo
 | `/api/usage/account` | GET | Usage account summary |
 | `/api/usage/chatbase-message` | POST | Chatbase mirror counter |
 | `/resume.txt` | GET | Plain-text resume (ATS/recruiter friendly) |
+| `/llms.txt` | GET | LLM/agent crawler index ([llmstxt.org](https://llmstxt.org/)) |
 | `/sitemap.xml` | GET | Dynamic sitemap |
 | `/robots.txt` | GET | Crawler directives |
 | `/opengraph-image` | GET | Dynamic social share image |

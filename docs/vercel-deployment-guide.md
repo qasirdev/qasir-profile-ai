@@ -111,7 +111,7 @@ www.qasir.co.uk         ← production URL
 | Build command | `npm run build` |
 | Node.js version | **20.x** |
 | API routes | 5 serverless routes under `src/app/api/*` (AI chat + quotas) |
-| Pages | `/`, `/resume`, `/resume.txt`, `/robots.txt`, `/sitemap.xml` |
+| Pages | `/`, `/resume`, `/resume.txt`, `/llms.txt`, `/robots.txt`, `/sitemap.xml` |
 | Database | None (quota state uses signed cookies) |
 | CV files | `cv/qasir-fullstack-cv.md`, `cv/qasir-mehmood-cv.pdf` (GitHub raw URLs) |
 | External services | OpenRouter (AI), optional Chatbase, optional Microsoft Clarity |

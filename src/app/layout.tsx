@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
     types: {
-      "text/plain": `${SITE_URL}/resume.txt`,
+      "text/plain": `${SITE_URL.replace(/\/$/, "")}/resume.txt`,
     },
   },
   openGraph: {
