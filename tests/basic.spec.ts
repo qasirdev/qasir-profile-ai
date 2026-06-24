@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 test.describe('Qasir Profile Website', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
+    await page.evaluate(() => sessionStorage.clear());
+    await page.reload();
   });
 
   test('has correct title and meta information', async ({ page }) => {
@@ -62,11 +64,30 @@ test.describe('Qasir Profile Website', () => {
     await expect(page.locator('text=Cloud Communications Platform')).toBeVisible();
   });
 
-  test('AI chat interface is functional', async ({ page }) => {
-    await page.locator('text=AI Chat').click();
+  test('opens digital twin by default on first load', async ({ page }) => {
     await expect(page.locator('#ai-twin-panel')).toBeVisible();
-    await expect(page.locator('text=Qasir Mehmood')).toBeVisible();
+    await expect(page.locator('#ai-twin-toggle')).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  test('AI chat interface is functional', async ({ page }) => {
+    const panel = page.locator('#ai-twin-panel');
+    await expect(panel).toBeVisible();
+    await expect(panel.locator('text=Qasir Mehmood')).toBeVisible();
     await expect(page.locator('textarea[placeholder*="Ask me anything"]')).toBeVisible();
+
+    await page.locator('text=AI Chat').click();
+    await expect(panel).toBeVisible();
+  });
+
+  test('stays closed after dismiss in same session', async ({ page }) => {
+    await expect(page.locator('#ai-twin-panel')).toBeVisible();
+
+    await page.locator('#ai-twin-toggle').click();
+    await expect(page.locator('#ai-twin-panel')).toBeHidden();
+
+    await page.reload();
+    await expect(page.locator('#ai-twin-panel')).toBeHidden();
+    await expect(page.locator('#ai-twin-toggle')).toHaveAttribute('aria-expanded', 'false');
   });
 
   test('contact section works', async ({ page }) => {
@@ -106,7 +127,7 @@ test.describe('Qasir Profile Website', () => {
     ];
 
     for (const linkSelector of socialLinks) {
-      const link = page.locator(`a[${linkSelector}]`);
+      const link = page.locator(`a[${linkSelector}]`).first();
       await expect(link).toBeVisible();
       await expect(link).toHaveAttribute('href');
     }

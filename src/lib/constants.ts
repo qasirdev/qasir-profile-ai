@@ -156,3 +156,59 @@ I work at the intersection of frontend engineering, backend systems and applied 
     "Build a JavaScript AI App with React and the OpenAI API"
   ]
 };
+
+export type SocialIconKey = "github" | "linkedin" | "mail" | "globe";
+
+export type SocialLink = {
+  id: string;
+  name: string;
+  href: string;
+  ariaLabel: string;
+  analyticsLabel: string;
+  gradientClass: string;
+  icon: SocialIconKey;
+  external: boolean;
+};
+
+export const SOCIAL_LINKS: SocialLink[] = [
+  {
+    id: "github",
+    name: "GitHub",
+    href: PROFILE_DATA.github,
+    ariaLabel: "Visit GitHub profile",
+    analyticsLabel: "GitHub",
+    gradientClass: "from-gray-700 to-gray-900",
+    icon: "github",
+    external: true,
+  },
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    href: PROFILE_DATA.linkedin,
+    ariaLabel: "Visit LinkedIn profile",
+    analyticsLabel: "LinkedIn",
+    gradientClass: "from-blue-600 to-blue-800",
+    icon: "linkedin",
+    external: true,
+  },
+  {
+    id: "email",
+    name: "Email",
+    href: `mailto:${PROFILE_DATA.email}`,
+    ariaLabel: `Email ${PROFILE_DATA.email}`,
+    analyticsLabel: "Email",
+    gradientClass: "from-blue-500 to-cyan-500",
+    icon: "mail",
+    external: false,
+  },
+  {
+    id: "website",
+    name: "Website",
+    href: PROFILE_DATA.website,
+    ariaLabel: "Visit personal website",
+    analyticsLabel: "Website",
+    gradientClass: "from-purple-600 to-pink-600",
+    icon: "globe",
+    external: true,
+  },
+];

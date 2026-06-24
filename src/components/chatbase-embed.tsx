@@ -8,6 +8,10 @@ import {
   useRef,
 } from "react";
 import Script from "next/script";
+import {
+  markDigitalTwinDismissed,
+  shouldAutoOpenDigitalTwin,
+} from "@/lib/digital-twin-events";
 import { isChatbaseExhaustionMessage, recordChatbaseUserMessage } from "@/lib/digital-twin-provider";
 
 type ChatbaseEvent = {
@@ -39,6 +43,7 @@ type ChatbaseEmbedProps = {
   embedId: string;
   onExhausted: () => void;
   onUserMessage?: () => void;
+  autoOpen?: boolean;
 };
 
 const CHATBASE_HIDE_STYLE_ID = "dt-chatbase-hide-style";
@@ -66,10 +71,16 @@ function showChatbaseBubble(): void {
 }
 
 export const ChatbaseEmbed = forwardRef<ChatbaseEmbedHandle, ChatbaseEmbedProps>(
-  function ChatbaseEmbed({ embedId, onExhausted, onUserMessage }, ref) {
+  function ChatbaseEmbed({ embedId, onExhausted, onUserMessage, autoOpen = true }, ref) {
     const readyRef = useRef(false);
+    const autoOpenedRef = useRef(false);
+    const autoOpenRef = useRef(autoOpen);
     const onExhaustedRef = useRef(onExhausted);
     const onUserMessageRef = useRef(onUserMessage);
+
+    useEffect(() => {
+      autoOpenRef.current = autoOpen;
+    }, [autoOpen]);
 
     useEffect(() => {
       onExhaustedRef.current = onExhausted;
@@ -99,6 +110,15 @@ export const ChatbaseEmbed = forwardRef<ChatbaseEmbedHandle, ChatbaseEmbedProps>
       [closeWidget, hideWidget, openWidget],
     );
 
+    const tryAutoOpen = useCallback(() => {
+      if (autoOpenedRef.current || !autoOpenRef.current || !shouldAutoOpenDigitalTwin()) {
+        return;
+      }
+
+      autoOpenedRef.current = true;
+      openWidget();
+    }, [openWidget]);
+
     const attachListeners = useCallback(() => {
       const chatbase = window.chatbase;
       if (!chatbase?.addEventListener || readyRef.current) {
@@ -120,12 +140,18 @@ export const ChatbaseEmbed = forwardRef<ChatbaseEmbedHandle, ChatbaseEmbedProps>
         }
       };
 
+      const handleClose = () => {
+        markDigitalTwinDismissed();
+      };
+
       chatbase.addEventListener("user-message", handleUserMessage);
       chatbase.addEventListener("assistant-message", handleAssistantMessage);
+      chatbase.addEventListener("close", handleClose);
       readyRef.current = true;
       showChatbaseBubble();
+      tryAutoOpen();
       return true;
-    }, []);
+    }, [tryAutoOpen]);
 
     useEffect(() => {
       if (attachListeners()) {

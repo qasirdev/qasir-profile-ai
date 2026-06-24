@@ -94,6 +94,7 @@ const DigitalTwinOrchestrator = () => {
         <ChatbaseEmbed
           ref={chatbaseRef}
           embedId={config.chatbaseEmbedId}
+          autoOpen
           onExhausted={handleChatbaseExhausted}
         />
       ) : null}

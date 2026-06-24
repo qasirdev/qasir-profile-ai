@@ -4,8 +4,9 @@ import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Mail, Download, ArrowDown, Code, Briefcase } from "lucide-react";
-import { PROFILE_DATA } from "@/lib/constants";
+import { Mail, Download, ArrowDown } from "lucide-react";
+import { PROFILE_DATA, SOCIAL_LINKS } from "@/lib/constants";
+import { SocialIconLink } from "@/components/social-icon-link";
 import { useAnalytics } from "@/lib/analytics";
 import { useScrollTracking } from "@/hooks/use-scroll-tracking";
 
@@ -49,10 +50,9 @@ const HeroSection = () => {
     document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSocialClick = (platform: string, url: string) => {
+  const handleSocialClick = (platform: string) => {
     trackClick({ element: "social_link", text: platform, position: { x: 0, y: 0 } });
     trackEvent({ action: "social_click", category: "user_interaction", label: platform });
-    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const containerVariants = {
@@ -179,47 +179,18 @@ const HeroSection = () => {
           </Button>
         </motion.div>
 
-        <motion.div className="flex gap-6 justify-center mb-16" variants={itemVariants}>
-          <motion.button
-            type="button"
-            onClick={() => handleSocialClick("GitHub", PROFILE_DATA.github)}
-            className="text-muted-foreground hover:text-foreground transition-colors p-3 rounded-full hover:bg-accent"
-            whileHover={prefersReducedMotion ? undefined : { scale: 1.1 }}
-            whileTap={prefersReducedMotion ? undefined : { scale: 0.9 }}
-            aria-label="Visit GitHub profile"
-          >
-            <Code className="h-6 w-6" aria-hidden="true" />
-          </motion.button>
-          <motion.button
-            type="button"
-            onClick={() => handleSocialClick("LinkedIn", PROFILE_DATA.linkedin)}
-            className="text-muted-foreground hover:text-foreground transition-colors p-3 rounded-full hover:bg-accent"
-            whileHover={prefersReducedMotion ? undefined : { scale: 1.1 }}
-            whileTap={prefersReducedMotion ? undefined : { scale: 0.9 }}
-            aria-label="Visit LinkedIn profile"
-          >
-            <Briefcase className="h-6 w-6" aria-hidden="true" />
-          </motion.button>
-          <motion.button
-            type="button"
-            onClick={() => handleSocialClick("Email", `mailto:${PROFILE_DATA.email}`)}
-            className="text-muted-foreground hover:text-foreground transition-colors p-3 rounded-full hover:bg-accent"
-            whileHover={prefersReducedMotion ? undefined : { scale: 1.1 }}
-            whileTap={prefersReducedMotion ? undefined : { scale: 0.9 }}
-            aria-label={`Email ${PROFILE_DATA.email}`}
-          >
-            <Mail className="h-6 w-6" aria-hidden="true" />
-          </motion.button>
-          <motion.button
-            type="button"
-            onClick={() => handleSocialClick("Website", PROFILE_DATA.website)}
-            className="text-muted-foreground hover:text-foreground transition-colors p-3 rounded-full hover:bg-accent"
-            whileHover={prefersReducedMotion ? undefined : { scale: 1.1 }}
-            whileTap={prefersReducedMotion ? undefined : { scale: 0.9 }}
-            aria-label="Visit personal website"
-          >
-            <ExternalLink className="h-6 w-6" aria-hidden="true" />
-          </motion.button>
+        <motion.div className="flex gap-5 justify-center mb-16" variants={itemVariants}>
+          {SOCIAL_LINKS.map((link) => (
+            <SocialIconLink
+              key={link.id}
+              href={link.href}
+              ariaLabel={link.ariaLabel}
+              gradientClass={link.gradientClass}
+              icon={link.icon}
+              external={link.external}
+              onClick={() => handleSocialClick(link.analyticsLabel)}
+            />
+          ))}
         </motion.div>
 
         {!prefersReducedMotion && (

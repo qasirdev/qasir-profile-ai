@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, ExternalLink, Send } from "lucide-react";
-import { PROFILE_DATA } from "@/lib/constants";
+import { PROFILE_DATA, SOCIAL_LINKS } from "@/lib/constants";
+import { SOCIAL_ICONS } from "@/components/social-icon-link";
 import { buildContactMailtoUrl, type ContactFormPayload } from "@/lib/contact-mailto";
 
 const EMPTY_FORM: ContactFormPayload = {
@@ -81,23 +82,7 @@ const ContactSection = () => {
     },
   ];
 
-  const socialLinks = [
-    {
-      name: "LinkedIn",
-      href: PROFILE_DATA.linkedin,
-      color: "from-blue-600 to-blue-800",
-    },
-    {
-      name: "GitHub",
-      href: PROFILE_DATA.github,
-      color: "from-gray-700 to-gray-900",
-    },
-    {
-      name: "Website",
-      href: PROFILE_DATA.website,
-      color: "from-purple-600 to-pink-600",
-    },
-  ];
+  const socialLinks = SOCIAL_LINKS.filter((link) => link.id !== "email");
 
   return (
     <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
@@ -183,23 +168,28 @@ const ContactSection = () => {
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6">Connect With Me</h3>
                   <div className="flex flex-wrap gap-3">
-                    {socialLinks.map((link, index) => (
-                      <a
-                        key={index}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group"
-                      >
-                        <Badge
-                          variant="outline"
-                          className={`px-4 py-2 text-sm font-medium bg-gradient-to-r ${link.color} text-white border-0 hover:opacity-90 transition-opacity cursor-pointer`}
+                    {socialLinks.map((link) => {
+                      const Icon = SOCIAL_ICONS[link.icon];
+                      return (
+                        <a
+                          key={link.id}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group"
+                          aria-label={link.ariaLabel}
                         >
-                          {link.name}
-                          <ExternalLink className="h-3 w-3 ml-2" />
-                        </Badge>
-                      </a>
-                    ))}
+                          <Badge
+                            variant="outline"
+                            className={`px-4 py-2 text-sm font-medium bg-gradient-to-r ${link.gradientClass} text-white border-0 hover:opacity-90 transition-opacity cursor-pointer inline-flex items-center`}
+                          >
+                            <Icon className="h-3.5 w-3.5 mr-2" aria-hidden="true" />
+                            {link.name}
+                            <ExternalLink className="h-3 w-3 ml-2" aria-hidden="true" />
+                          </Badge>
+                        </a>
+                      );
+                    })}
                   </div>
 
                   <div className="mt-6 p-4 bg-muted/50 rounded-lg">

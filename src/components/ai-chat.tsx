@@ -19,7 +19,11 @@ import { DigitalTwinObservability } from "@/components/digital-twin-observabilit
 import { ChatMarkdown } from "@/components/chat-markdown";
 import { DigitalTwinStarterPrompts } from "@/components/digital-twin-starter-prompts";
 import { useAnalytics } from "@/lib/analytics";
-import { DIGITAL_TWIN_OPEN_EVENT } from "@/lib/digital-twin-events";
+import {
+  DIGITAL_TWIN_OPEN_EVENT,
+  markDigitalTwinDismissed,
+  shouldAutoOpenDigitalTwin,
+} from "@/lib/digital-twin-events";
 import type { QuotaSnapshot, QuestionLimitError, RunMetadata } from "@/lib/usage-tracking";
 import {
   fetchQuotaSnapshot,
@@ -50,7 +54,7 @@ const getDefaultMessages = (): Message[] => [
 
 const AIChat = () => {
   const { trackChatInteraction } = useAnalytics();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(() => shouldAutoOpenDigitalTwin());
   const [messages, setMessages] = useState<Message[]>(getDefaultMessages);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -94,16 +98,22 @@ const AIChat = () => {
 
   const openChat = useCallback(() => {
     setIsOpen(true);
-    void refreshQuota();
-  }, [refreshQuota]);
+  }, []);
 
   const toggleChat = useCallback(() => {
     if (isOpen) {
+      markDigitalTwinDismissed();
       setIsOpen(false);
       return;
     }
     openChat();
   }, [isOpen, openChat]);
+
+  useEffect(() => {
+    if (isOpen) {
+      void refreshQuota();
+    }
+  }, [isOpen, refreshQuota]);
 
   useEffect(() => {
     const handleOpen = () => openChat();
