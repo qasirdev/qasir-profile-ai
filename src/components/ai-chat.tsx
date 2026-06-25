@@ -98,7 +98,8 @@ const AIChat = () => {
 
   const openChat = useCallback(() => {
     setIsOpen(true);
-  }, []);
+    void refreshQuota();
+  }, [refreshQuota]);
 
   const toggleChat = useCallback(() => {
     if (isOpen) {
@@ -109,11 +110,41 @@ const AIChat = () => {
     openChat();
   }, [isOpen, openChat]);
 
+  const shouldFetchQuotaOnMount = useRef(
+    typeof window !== "undefined" ? shouldAutoOpenDigitalTwin() : false,
+  );
+
   useEffect(() => {
-    if (isOpen) {
-      void refreshQuota();
+    if (!shouldFetchQuotaOnMount.current) {
+      return;
     }
-  }, [isOpen, refreshQuota]);
+
+    shouldFetchQuotaOnMount.current = false;
+
+    let cancelled = false;
+
+    void (async () => {
+      const snapshot = await fetchQuotaSnapshot();
+      if (cancelled || !snapshot) {
+        return;
+      }
+
+      setQuotaSnapshot(snapshot);
+      if (isQuotaExceeded(snapshot)) {
+        setQuotaBlockedReason(
+          snapshot.visitLimit > 0 && snapshot.visitUsed >= snapshot.visitLimit
+            ? "visit"
+            : "day",
+        );
+      } else {
+        setQuotaBlockedReason(null);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const handleOpen = () => openChat();
