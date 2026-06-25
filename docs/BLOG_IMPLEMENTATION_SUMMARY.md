@@ -146,7 +146,7 @@ Your personal website now has a **production-grade blog system** powered by Sani
   "@sanity/client": "^7.23.0",
   "@sanity/image-url": "^1.2.0",
   "sanity": "^3.99.0",
-  "next-sanity": "^9.12.3",
+  "next-sanity": "^13.1.1",
   "@portabletext/react": "^4.0.3",
   "styled-components": "^6.4.3"
 }

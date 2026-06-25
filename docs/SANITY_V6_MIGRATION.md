@@ -4,7 +4,7 @@
 
 ### 1. Package Dependencies
 - ✅ **package.json**: Updated `sanity` from `^3.99.0` to `^6.0.0`
-- ✅ Kept `next-sanity` at `^9.12.3` (compatible with v6)
+- ✅ **next-sanity** upgraded to `^13.1.1` (Next.js 16 peer dependency compatible)
 - ✅ Kept `@sanity/client` at `^7.23.0` (latest)
 - ✅ Kept `styled-components` at `^6.4.3` (required peer dependency)
 
