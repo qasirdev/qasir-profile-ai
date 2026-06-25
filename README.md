@@ -240,7 +240,7 @@ Full deployment walkthrough: [docs/vercel-deployment-guide.md](docs/vercel-deplo
 
 ## License
 
-Private and proprietary. All rights reserved.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
