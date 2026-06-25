@@ -62,11 +62,12 @@ export const GITHUB_REPOS = [
     name: "qasir-profile-ai",
     url: "https://github.com/qasirdev/qasir-profile-ai",
     summary:
-      "Production portfolio site with AI Digital Twin — dual Chatbase + OpenRouter providers, grounded CV/GitHub knowledge, SSE streaming, quotas and observability.",
+      "Production portfolio site with AI Digital Twin and Sanity CMS blog — dual Chatbase + OpenRouter providers, GROQ content fetching, embedded Studio at /studio, SSE streaming, quotas and observability.",
     technologies: [
       "Next.js 16",
       "React 19",
       "TypeScript",
+      "Sanity CMS",
       "Tailwind CSS v4",
       "ShadCN UI",
       "OpenRouter",
@@ -76,7 +77,7 @@ export const GITHUB_REPOS = [
       "Playwright",
     ],
     dataFetching:
-      "Client fetch with ReadableStream SSE for /api/chat; Chatbase embed with OpenRouter failover; GET /api/usage/quota and /api/usage/account BFF routes.",
+      "Sanity GROQ via next-sanity for /blogs; client fetch with ReadableStream SSE for /api/chat; Chatbase embed with OpenRouter failover; GET /api/usage/quota and /api/usage/account BFF routes.",
   },
   {
     name: "2026-python-ai-azure",
@@ -238,7 +239,7 @@ export function buildDigitalTwinSystemPrompt(): string {
     <assistant>
       I pick the pattern per app — not one generic stack.
 
-      - **This portfolio** ([qasir-profile-ai](https://github.com/qasirdev/qasir-profile-ai)): Chatbase embed with OpenRouter failover; client \`fetch\` + SSE streaming for \`/api/chat\`; quota and usage BFF routes.
+      - **This portfolio** ([qasir-profile-ai](https://github.com/qasirdev/qasir-profile-ai)): **Sanity CMS** blog at \`/blogs\` (GROQ + Portable Text); Chatbase embed with OpenRouter failover; client \`fetch\` + SSE streaming for \`/api/chat\`; quota and usage BFF routes.
       - **AI Career Copilot** ([job-discovery](https://github.com/qasirdev/job-discovery)): **TanStack Query** with keyset pagination on the Next.js 16 frontend, backed by async FastAPI + Redis.
       - **Daily briefing** ([daily-briefing](https://github.com/qasirdev/daily-briefing)): TanStack Query → FastAPI; MCP for PostgreSQL/Calendar.
       - **Hecate Technologies**: SSE for real-time features with Cosmos DB + FastAPI behind Next.js 15.

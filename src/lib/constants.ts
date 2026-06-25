@@ -1,5 +1,13 @@
 export const SITE_URL = process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://www.qasir.co.uk";
 
+/** Sanity CMS — headless blog content (Studio at /studio, public listing at /blogs) */
+export const BLOG_CMS = {
+  provider: "Sanity CMS",
+  studioPath: "/studio",
+  listingPath: "/blogs",
+  setupGuidePath: "docs/SANITY_SETUP_GUIDE.md",
+} as const;
+
 export const PROFILE_DATA = {
   name: "Qasir Mehmood",
   title: "Senior Full-Stack Developer | Next.js, React, TypeScript | Azure AI Engineer (AI-102) | Python & FastAPI | Generative AI & Agentic AI Solutions | 12+ Years Experience",

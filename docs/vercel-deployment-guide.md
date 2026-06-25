@@ -109,12 +109,13 @@ www.qasir.co.uk         ← production URL
 |------|--------|
 | Framework | Next.js 16 (App Router) |
 | Build command | `npm run build` |
-| Node.js version | **20.x** |
+| Node.js version | **22.x** (Sanity Studio v6) |
 | API routes | 5 serverless routes under `src/app/api/*` (AI chat + quotas) |
-| Pages | `/`, `/resume`, `/resume.txt`, `/llms.txt`, `/robots.txt`, `/sitemap.xml` |
+| Pages | `/`, `/blogs`, `/blogs/[slug]`, `/studio`, `/resume`, `/resume.txt`, `/llms.txt`, `/robots.txt`, `/sitemap.xml` |
 | Database | None (quota state uses signed cookies) |
+| Blog CMS | **Sanity CMS** — content fetched via GROQ; images from `cdn.sanity.io` |
 | CV files | `cv/qasir-fullstack-cv.md`, `cv/qasir-mehmood-cv.pdf` (GitHub raw URLs) |
-| External services | OpenRouter (AI), optional Chatbase, optional Microsoft Clarity |
+| External services | OpenRouter (AI), **Sanity** (blog), optional Chatbase, optional Microsoft Clarity |
 
 **Important:** This is **not** a static export. The AI chat requires Vercel serverless functions.
 
@@ -338,6 +339,11 @@ Copy from your local `.env` or use these values:
 | `DIGITAL_TWIN_MAX_QUESTIONS_PER_DAY` | `20` |
 | `NEXT_PUBLIC_CV_URL` | `https://github.com/qasirdev/qasir-profile-ai/raw/main/cv/qasir-mehmood-cv.pdf` |
 | `NEXT_PUBLIC_RESUME_TEXT_URL` | `https://github.com/qasirdev/qasir-profile-ai/raw/main/cv/qasir-fullstack-cv.md` |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Your Sanity project ID (required for `/blogs`) |
+| `NEXT_PUBLIC_SANITY_DATASET` | `production` |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | `2026-06-01` |
+
+See [SANITY_SETUP_GUIDE.md](./SANITY_SETUP_GUIDE.md) for Sanity project setup and CORS (`https://www.qasir.co.uk`, preview URLs).
 
 ### Optional
 
@@ -349,8 +355,11 @@ Copy from your local `.env` or use these values:
 | `DIGITAL_TWIN_CHATBASE_MONTHLY_BUDGET` | Chatbase mirror threshold (default `50`) |
 | `DIGITAL_TWIN_MAX_HISTORY_TURNS` | Conversation history cap (default `6`) |
 | `NEXT_PUBLIC_PROFILE_IMAGE_URL` | Override default `/profile-photo.jpg` |
+| `SANITY_API_TOKEN` | Server-side Sanity token for draft preview (optional) |
 
 **Scoping:** Set Production for all. Also set Preview if you want AI chat on preview URLs.
+
+**Sanity CORS:** Add `https://www.qasir.co.uk` and your Vercel preview domain in [sanity.io/manage](https://www.sanity.io/manage) → API → CORS origins.
 
 Click **Deploy** after saving variables.
 
@@ -536,6 +545,10 @@ Full list from `.env.example`:
 | `NEXT_PUBLIC_PROFILE_IMAGE_URL` | Optional | Public | Defaults to `/profile-photo.jpg` |
 | `NEXT_PUBLIC_CV_URL` | Recommended | Public | GitHub raw PDF URL |
 | `NEXT_PUBLIC_RESUME_TEXT_URL` | Recommended | Public | GitHub raw markdown URL |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | **Yes (blog)** | Public | Sanity project ID |
+| `NEXT_PUBLIC_SANITY_DATASET` | Recommended | Public | Default: `production` |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | Recommended | Public | Default: `2026-06-01` |
+| `SANITY_API_TOKEN` | Optional | Server | Draft/preview access only |
 
 Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser. Never prefix secrets with `NEXT_PUBLIC_`.
 

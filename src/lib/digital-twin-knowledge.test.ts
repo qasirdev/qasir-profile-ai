@@ -28,6 +28,7 @@ describe("digital-twin-knowledge", () => {
     const profile = GITHUB_REPOS.find((repo) => repo.name === "qasir-profile-ai");
 
     expect(jobDiscovery?.dataFetching).toContain("TanStack Query");
-    expect(profile?.dataFetching).toContain("SSE");
+    expect(profile?.dataFetching).toContain("Sanity GROQ");
+    expect(profile?.technologies).toContain("Sanity CMS");
   });
 });

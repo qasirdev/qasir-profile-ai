@@ -86,4 +86,4 @@ AI Career Copilot (Job Discovery) — https://github.com/qasirdev/job-discovery
 `;
 
 export const SEO_KEYWORDS =
-  "Senior Full-Stack Developer, Next.js, React, TypeScript, FastAPI, Python 3.12+, Azure AI, Azure AI Engineer, AI-102, Generative AI, Agentic AI, RAG, LangGraph, Temporal, MCP, PostgreSQL, pgvector, Docker, Terraform, GitHub Actions, microservices, cloud-native, REST APIs, GraphQL, OAuth 2.0, JWT, WCAG accessibility";
+  "Senior Full-Stack Developer, Next.js, React, TypeScript, FastAPI, Python 3.12+, Azure AI, Azure AI Engineer, AI-102, Generative AI, Agentic AI, RAG, LangGraph, Temporal, MCP, PostgreSQL, pgvector, Docker, Terraform, GitHub Actions, microservices, cloud-native, REST APIs, GraphQL, OAuth 2.0, JWT, WCAG accessibility, Sanity CMS, headless CMS, Portable Text";

@@ -7,7 +7,7 @@ import PortfolioSection from "@/components/portfolio-section";
 import DigitalTwinOrchestrator from "@/components/digital-twin-orchestrator";
 import ContactSection from "@/components/contact-section";
 import { SeoKeywordsSection } from "@/components/seo-keywords-section";
-import { PROFILE_DATA } from "@/lib/constants";
+import { PROFILE_DATA, BLOG_CMS } from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -57,13 +57,17 @@ export default function Home() {
                 GitHub
               </a>
               {" · "}
+              <a href={BLOG_CMS.listingPath} className="hover:text-foreground transition-colors">
+                Blog
+              </a>
+              {" · "}
               <a href="/resume" className="hover:text-foreground transition-colors">
                 Plain-text resume
               </a>
             </div>
           </address>
           <p className="text-muted-foreground text-sm">
-            © 2026 {PROFILE_DATA.name}. Built with Next.js 16, React 19, TypeScript and the AI Digital Twin.
+            © 2026 {PROFILE_DATA.name}. Built with Next.js 16, React 19, TypeScript, {BLOG_CMS.provider} and the AI Digital Twin.
           </p>
         </div>
       </footer>

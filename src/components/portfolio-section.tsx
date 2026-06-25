@@ -121,11 +121,12 @@ const PortfolioSection = () => {
       title: "Qasir Profile AI",
       category: "Portfolio / AI",
       description:
-        "Production personal portfolio with an AI Digital Twin — dual Chatbase + OpenRouter providers, grounded CV/GitHub knowledge, SSE streaming, per-visit quotas and OpenRouter model fallback.",
+        "Production personal portfolio with an AI Digital Twin and Sanity CMS blog — dual Chatbase + OpenRouter providers, GROQ-powered /blogs, embedded Studio, SSE streaming, per-visit quotas and OpenRouter model fallback.",
       technologies: [
         "Next.js 16",
         "React 19",
         "TypeScript",
+        "Sanity CMS",
         "Tailwind CSS v4",
         "ShadCN UI",
         "OpenRouter",
@@ -134,10 +135,10 @@ const PortfolioSection = () => {
         "Playwright",
       ],
       features: [
+        "Sanity CMS blog (/blogs) with Portable Text",
+        "Embedded Sanity Studio (/studio)",
         "AI Digital Twin (Chatbase + OpenRouter)",
-        "Grounded system prompt from CV & GitHub",
         "SSE streaming & model fallback",
-        "Visit/day quota & usage observability",
         "Vitest + Playwright test suite",
       ],
       status: "Production",
