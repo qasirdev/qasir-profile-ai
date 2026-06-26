@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Senior Full-Stack Developer and Azure AI Engineer (AI-102) with 12+ years of experience. Next.js, React, TypeScript, FastAPI, Python 3.12+, Azure AI, Generative AI, RAG, LangGraph, Temporal, MCP and cloud-native architecture.";
+  "Senior Full-Stack Developer and Azure AI Engineer (AI-102) with 12+ years of experience. Next.js, React, TypeScript, FastAPI, Python 3.12+, Azure AI, Generative AI, RAG, Sanity CMS blog, LangGraph, Temporal, MCP and cloud-native architecture.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

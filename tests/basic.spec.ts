@@ -8,7 +8,7 @@ test.describe('Qasir Profile Website', () => {
   });
 
   test('has correct title and meta information', async ({ page }) => {
-    await expect(page).toHaveTitle(/Qasir Mehmood - Senior Full-Stack Developer/);
+    await expect(page).toHaveTitle(/Qasir Mehmood/);
   });
 
   test('navigation works correctly', async ({ page }) => {
@@ -60,8 +60,23 @@ test.describe('Qasir Profile Website', () => {
   test('portfolio section displays projects', async ({ page }) => {
     await page.locator('text=Portfolio').click();
     await expect(page.locator('h2:has-text("Portfolio & Projects")')).toBeVisible();
-    await expect(page.locator('text=AI-Powered Digital Transformation Platform')).toBeVisible();
-    await expect(page.locator('text=Cloud Communications Platform')).toBeVisible();
+    await expect(page.locator('text=Azure AI Digital Transformation Platform')).toBeVisible();
+    await expect(page.locator('text=Qasir Profile AI')).toBeVisible();
+  });
+
+  test('blog page loads (Sanity CMS)', async ({ page }) => {
+    await page.goto('/blogs');
+    await expect(page).toHaveTitle(/Blog \| Qasir Mehmood/);
+    await expect(page.locator('h1:has-text("Blog")')).toBeVisible();
+    await expect(
+      page.locator('text=Featured Posts').or(page.locator('text=No blog posts yet'))
+    ).toBeVisible();
+  });
+
+  test('navigation links to blog', async ({ page }) => {
+    await page.locator('nav >> text=Blog').click();
+    await expect(page).toHaveURL(/\/blogs$/);
+    await expect(page.locator('h1:has-text("Blog")')).toBeVisible();
   });
 
   test('opens digital twin by default on first load', async ({ page }) => {

@@ -10,6 +10,8 @@ describe("buildLlmsTxt", () => {
     expect(text).toContain("## Primary");
     expect(text).toContain("## Optional");
     expect(text).toContain("[Plain-text resume](https://www.qasir.co.uk/resume.txt)");
+    expect(text).toContain("[Blog](https://www.qasir.co.uk/blogs)");
+    expect(text).toContain("Sanity CMS");
     expect(text).toContain("[Sitemap](https://www.qasir.co.uk/sitemap.xml)");
     expect(text).not.toContain("](/");
   });

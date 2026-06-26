@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
@@ -9,6 +10,7 @@ import { openDigitalTwin } from "@/lib/digital-twin-events";
 
 const Navigation = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDark, setIsDark] = useState(false);
@@ -48,6 +50,7 @@ const Navigation = () => {
     { label: "Experience", href: "#experience" },
     { label: "Skills", href: "#skills" },
     { label: "Portfolio", href: "#portfolio" },
+    { label: "Blog", href: "/blogs", isRoute: true as const },
     { label: "Resume", href: "/resume", isRoute: true as const },
     { label: "AI Chat", href: "#ai-chat", action: "open-digital-twin" as const },
     { label: "Contact", href: "#contact" },
@@ -62,14 +65,37 @@ const Navigation = () => {
 
     if ("isRoute" in item && item.isRoute) {
       router.push(item.href);
+      setIsOpen(false);
       return;
     }
 
+    // For hash anchor links
+    const isHomePage = pathname === "/";
+    
+    if (!isHomePage) {
+      // If not on home page, navigate to home with hash
+      router.push(`/${item.href}`);
+      setIsOpen(false);
+      return;
+    }
+
+    // If on home page, just scroll to element
     const element = document.querySelector(item.href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
     setIsOpen(false);
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (pathname === "/") {
+      // If on home page, scroll to top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // If on another page, navigate to home
+      router.push("/");
+    }
   };
 
   return (
@@ -87,12 +113,17 @@ const Navigation = () => {
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            <a href="#" className="flex items-center gap-2" aria-label="Qasir Mehmood — home">
+            <Link
+              href="/"
+              onClick={handleLogoClick}
+              className="flex items-center gap-2 cursor-pointer"
+              aria-label="Qasir Mehmood — home"
+            >
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">QM</span>
               </div>
               <span className="font-bold text-lg text-gradient">Qasir</span>
-            </a>
+            </Link>
 
             <div className="hidden lg:flex items-center gap-6">
               {navItems.map((item) => (

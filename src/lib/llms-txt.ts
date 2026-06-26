@@ -1,4 +1,4 @@
-import { PROFILE_DATA, SITE_URL } from "@/lib/constants";
+import { PROFILE_DATA, SITE_URL, BLOG_CMS } from "@/lib/constants";
 
 function siteBase(): string {
   return SITE_URL.replace(/\/$/, "");
@@ -17,6 +17,7 @@ Open to senior full-stack, AI engineering, and technical lead opportunities. Con
 ## Primary
 
 - [Home](${base}/): Portfolio homepage — about, experience, skills, projects, and contact.
+- [Blog](${base}${BLOG_CMS.listingPath}): Technical articles on Next.js, React, cloud and AI — content managed in ${BLOG_CMS.provider}.
 - [Plain-text resume](${base}/resume.txt): Full CV in plain text; preferred source for factual extraction and ATS parsing.
 - [Resume page](${base}/resume): Human-readable resume with download links.
 
@@ -34,6 +35,7 @@ Open to senior full-stack, AI engineering, and technical lead opportunities. Con
 
 ## Optional
 
+- [Sanity Studio](${base}${BLOG_CMS.studioPath}): Embedded ${BLOG_CMS.provider} editor for blog posts (authenticated).
 - [Open Graph image](${base}/opengraph-image): Social preview image for link sharing.
 - [Site repository](https://github.com/qasirdev/qasir-profile-ai): Source code for this portfolio (Next.js, React, TypeScript, AI Digital Twin).
 - [Resume source (Markdown)](${PROFILE_DATA.resumeTextUrl}): Upstream markdown CV used to generate \`/resume.txt\`.

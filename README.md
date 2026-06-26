@@ -7,6 +7,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![Playwright](https://img.shields.io/badge/E2E-Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev)
 [![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
+[![Sanity](https://img.shields.io/badge/Blog-Sanity_CMS-E03131?style=for-the-badge&logo=sanity&logoColor=white)](https://www.sanity.io)
 
 **Production-grade developer portfolio** showcasing 12+ years of **Full-Stack**, **Azure AI**, and **cloud-native** engineering — built with **Next.js 16 App Router**, **React 19**, **TypeScript**, and an **LLM-powered AI Digital Twin**.
 
@@ -18,7 +19,7 @@
 
 ## Overview
 
-A modern, recruiter- and ATS-friendly portfolio platform that combines premium UI/UX with real production patterns: streaming AI chat, signed quota management, remote CV/resume delivery, structured SEO, analytics, and automated CI/CD.
+A modern, recruiter- and ATS-friendly portfolio platform that combines premium UI/UX with real production patterns: streaming AI chat, signed quota management, remote CV/resume delivery, **Sanity CMS blog**, structured SEO, analytics, and automated CI/CD.
 
 Designed for **recruiters**, **hiring managers**, and **technical reviewers** to quickly assess skills, experience, and engineering quality — while demonstrating enterprise-grade frontend architecture and applied AI integration.
 
@@ -31,11 +32,12 @@ Designed for **recruiters**, **hiring managers**, and **technical reviewers** to
 | **AI Digital Twin** | Streaming LLM chat via **OpenRouter** with model fallback chain; optional **Chatbase** embed with auto-provider orchestration |
 | **Quota & Cost Control** | HMAC-signed visit/day quotas, conversation history trimming, monthly Chatbase budget mirroring |
 | **Resume & CV** | `/resume` page, `/resume.txt` plain-text endpoint, PDF download — sourced from GitHub raw URLs (update CV without redeploying) |
-| **SEO & Discoverability** | JSON-LD Person schema, dynamic OG image, sitemap, robots.txt, keyword-rich metadata, canonical URLs |
+| **Blog (Sanity CMS)** | Headless blog at `/blogs` with GROQ fetching, Portable Text rendering, categories, authors, SEO fields, and embedded Studio at `/studio` |
+| **SEO & Discoverability** | JSON-LD Person schema, dynamic OG image, sitemap (includes blog posts), robots.txt, keyword-rich metadata, canonical URLs |
 | **Analytics** | Microsoft Clarity session analytics with custom event tracking |
 | **Accessibility** | Skip navigation, semantic HTML, WCAG 2.1 patterns, keyboard-friendly UI |
 | **Design System** | ShadCN UI + Radix primitives, Framer Motion, dark/light themes, glassmorphism, responsive mobile-first layout |
-| **Content Sections** | Hero, About, Career Timeline, Skills, Portfolio, AI Chat, Contact, SEO keywords |
+| **Content Sections** | Hero, About, Career Timeline, Skills, Portfolio, Blog, AI Chat, Contact, SEO keywords |
 | **Quality Assurance** | Vitest unit tests, Playwright E2E, GitHub Actions CI on every push/PR |
 
 ---
@@ -64,6 +66,12 @@ Designed for **recruiters**, **hiring managers**, and **technical reviewers** to
 - **Streaming SSE** — Real-time token streaming for chat responses
 - **Signed cookie quotas** — Per-visit and per-day rate limiting
 
+### Content (Blog)
+- **Sanity CMS v6** — Headless content platform with embedded Studio at `/studio`
+- **GROQ + next-sanity** — Server-side blog fetching with ISR revalidation
+- **Portable Text** — Rich blog body with code blocks, images, and links
+- **@sanity/code-input** — Syntax-highlighted code blocks in Studio
+
 ### DevOps & Quality
 - **GitHub Actions** — CI pipeline (`npm ci` + `npm run build`)
 - **Vercel** — Production hosting with preview deployments
@@ -84,18 +92,23 @@ Designed for **recruiters**, **hiring managers**, and **technical reviewers** to
 qasir-profile/
 ├── .github/workflows/ci.yml    # GitHub Actions CI
 ├── cv/                         # CV markdown & PDF (GitHub raw source)
-├── docs/                       # Deployment & operational guides
+├── docs/                       # Deployment, Sanity CMS, and operational guides
 ├── public/                     # Static assets
+├── sanity.config.ts            # Sanity Studio v6 configuration
 ├── src/
 │   ├── app/                    # App Router pages & API routes
 │   │   ├── api/chat/           # OpenRouter streaming endpoint
 │   │   ├── api/usage/          # Quota & usage tracking
+│   │   ├── blogs/              # Blog listing & post pages (Sanity CMS)
+│   │   ├── studio/             # Embedded Sanity Studio
 │   │   ├── resume/             # Resume page
 │   │   └── resume.txt/         # Plain-text resume endpoint
-│   ├── components/             # UI sections & Digital Twin
+│   ├── components/             # UI sections, blog components & Digital Twin
+│   ├── sanity/                 # Sanity schema, GROQ queries, client
 │   └── lib/                    # AI, analytics, SEO, resume logic
 ├── tests/                      # Playwright E2E specs
-└── .env.example                # Environment variable reference
+├── .env.example                # Environment variable reference
+└── .env.local.example          # Sanity CMS variables
 ```
 
 ---
@@ -107,6 +120,7 @@ qasir-profile/
 - **Node.js 24+** (GitHub Actions runners; Node 20 is deprecated on `ubuntu-latest`)
 - **npm**
 - OpenRouter API key (for AI Digital Twin)
+- Sanity project ID (for blog — see [docs/SANITY_SETUP_GUIDE.md](docs/SANITY_SETUP_GUIDE.md))
 - Optional: Chatbase agent ID, Microsoft Clarity project ID
 
 ### Installation
@@ -136,6 +150,12 @@ cp .env.example .env.local
 | `NEXT_PUBLIC_APP_URL` | Yes | Site URL (`http://localhost:3000` locally) |
 | `NEXT_PUBLIC_CV_URL` | No | GitHub raw PDF URL for CV download |
 | `NEXT_PUBLIC_RESUME_TEXT_URL` | No | GitHub raw markdown URL for `/resume.txt` |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Yes (blog) | Sanity project ID for `/blogs` content |
+| `NEXT_PUBLIC_SANITY_DATASET` | No | Defaults to `production` |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | No | Defaults to `2026-06-01` |
+| `SANITY_API_TOKEN` | No | Server-side token for draft/preview (optional) |
+
+Blog setup: [docs/SANITY_SETUP_GUIDE.md](docs/SANITY_SETUP_GUIDE.md)
 
 ### Development
 
@@ -197,6 +217,9 @@ Full deployment walkthrough: [docs/vercel-deployment-guide.md](docs/vercel-deplo
 | `/api/usage/account` | GET | Usage account summary |
 | `/api/usage/chatbase-message` | POST | Chatbase mirror counter |
 | `/resume.txt` | GET | Plain-text resume (ATS/recruiter friendly) |
+| `/blogs` | GET | Blog listing (Sanity CMS) |
+| `/blogs/[slug]` | GET | Individual blog post (Sanity CMS) |
+| `/studio` | GET | Embedded Sanity Studio (content management) |
 | `/llms.txt` | GET | LLM/agent crawler index ([llmstxt.org](https://llmstxt.org/)) |
 | `/sitemap.xml` | GET | Dynamic sitemap |
 | `/robots.txt` | GET | Crawler directives |
@@ -219,6 +242,7 @@ Full deployment walkthrough: [docs/vercel-deployment-guide.md](docs/vercel-deplo
 **Languages:** JavaScript, TypeScript, Python  
 **Frontend:** React, Next.js, Tailwind CSS, Redux, GraphQL  
 **Backend:** Node.js, FastAPI, REST APIs, OAuth 2.0, JWT  
+**Content:** Sanity CMS, Portable Text, GROQ, headless CMS  
 **Cloud & DevOps:** Azure, AWS, Docker, Terraform, Vercel, GitHub Actions  
 **AI/ML:** Azure OpenAI, Generative AI, RAG, Agentic AI, LLM Integration, MCP, Prompt Engineering  
 **Databases:** PostgreSQL, MongoDB, MySQL, Prisma  
