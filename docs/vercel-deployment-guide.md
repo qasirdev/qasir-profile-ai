@@ -546,7 +546,7 @@ Full list from `.env.example`:
 | `NEXT_PUBLIC_CV_URL` | Recommended | Public | GitHub raw PDF URL |
 | `NEXT_PUBLIC_RESUME_TEXT_URL` | Recommended | Public | GitHub raw markdown URL |
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | **Yes (blog)** | Public | Sanity project ID |
-| `NEXT_PUBLIC_SANITY_DATASET` | Recommended | Public | Default: `production` |
+| `NEXT_PUBLIC_SANITY_DATASET` | Recommended | Public |   Default: `production` |
 | `NEXT_PUBLIC_SANITY_API_VERSION` | Recommended | Public | Default: `2026-06-01` |
 | `SANITY_API_TOKEN` | Optional | Server | Draft/preview access only |
 
